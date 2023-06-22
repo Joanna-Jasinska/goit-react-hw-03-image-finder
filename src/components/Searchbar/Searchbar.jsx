@@ -3,9 +3,6 @@ import { PropTypes } from 'prop-types';
 import css from './Searchbar.module.css';
 
 export class Searchbar extends Component {
-  constructor(props) {
-    super(props);
-  }
   inputHandle = e => {
     this.props.stateUpdate(e.target.name, e.target.value);
   };
@@ -36,3 +33,9 @@ export class Searchbar extends Component {
     );
   }
 }
+
+Searchbar.propTypes = {
+  query: PropTypes.string.isRequired,
+  stateUpdate: PropTypes.func.isRequired,
+  searchHandle: PropTypes.func.isRequired,
+};

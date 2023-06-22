@@ -3,15 +3,12 @@ import { PropTypes } from 'prop-types';
 import css from './Modal.module.css';
 
 export class Modal extends Component {
-  constructor(props) {
-    super(props);
-  }
   static defaultProps = {
     url: 'no url',
     alt: 'no alt',
   };
   handleKeyUp = e => {
-    if (e.key == 'Escape') this.closeModal();
+    if (e.key === 'Escape') this.closeModal();
   };
   closeModal = () => {
     this.props.stateUpdate('modalIndex', '-1');

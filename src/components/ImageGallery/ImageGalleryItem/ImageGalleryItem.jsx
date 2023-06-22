@@ -3,9 +3,6 @@ import { PropTypes } from 'prop-types';
 import css from './ImageGalleryItem.module.css';
 
 export class ImageGalleryItem extends Component {
-  constructor(props) {
-    super(props);
-  }
   static defaultProps = {
     id: 'no id',
     miniature: 'no miniature',

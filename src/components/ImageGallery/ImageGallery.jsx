@@ -5,10 +5,6 @@ import { nanoid } from 'nanoid';
 import css from './ImageGallery.module.css';
 
 export class ImageGallery extends Component {
-  constructor(props) {
-    super(props);
-    //   this.state = { ...INITIAL_STATE };
-  }
   onClickHandle = i => {
     return e => {
       e.preventDefault();
