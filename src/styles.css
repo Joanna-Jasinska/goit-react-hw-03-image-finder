@@ -109,7 +109,7 @@ img {
   font-size: 20px;
   border: none;
   outline: none;
-  padding-left: 4px;
+  padding-left: 8px;
   padding-right: 4px;
 }
 
@@ -181,6 +181,9 @@ img {
 * Стили компонента Buton (Load more)
 */
 .Button {
+  /* position: relative; */
+  /* margin: 0 100%; */
+  /* transform: translate(-500%, 0); */
   padding: 8px 16px;
   border-radius: 2px;
   background-color: #3f51b5;
@@ -204,4 +207,9 @@ img {
 .Button:hover,
 .Button:focus {
   background-color: #303f9f;
+}
+
+.Message {
+  font-size: 1.2em;
+  text-align: center;
 }

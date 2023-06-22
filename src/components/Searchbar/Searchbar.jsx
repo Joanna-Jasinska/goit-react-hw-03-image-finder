@@ -17,8 +17,8 @@ export class Searchbar extends Component {
     return (
       <header className="Searchbar">
         <form className="SearchForm" onSubmit={this.submitHandle}>
-          <button type="submit" className="SearchForm-button">
-            <span className="button-label">Search</span>
+          <button type="submit" className={css.button}>
+            <span className={css.label}>🔍</span>
           </button>
 
           <input
@@ -26,8 +26,8 @@ export class Searchbar extends Component {
             type="text"
             autoComplete="off"
             autoFocus
-            name="querry"
-            value={this.props.querry}
+            name="query"
+            value={this.props.query}
             onInput={this.inputHandle}
             placeholder="Search images and photos"
           />

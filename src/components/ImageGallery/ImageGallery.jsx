@@ -9,15 +9,9 @@ export class ImageGallery extends Component {
     super(props);
     //   this.state = { ...INITIAL_STATE };
   }
-  componentDidUpdate() {
-    console.log(`ImageGallery update this.props`);
-    console.log(this.props);
-  }
   onClickHandle = i => {
     return e => {
       e.preventDefault();
-      console.log(`ImageGallery clicked on [${i}], this.props:`);
-      console.log(this.props);
       this.props.stateUpdate('modalIndex', i);
     };
   };
