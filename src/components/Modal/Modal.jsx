@@ -27,11 +27,16 @@ export class Modal extends Component {
 
   render() {
     return (
-      <div className="Overlay" onClick={this.closeModal}>
-        <div className="Modal">
+      <div className={css.Overlay} onClick={this.closeModal}>
+        <div className={css.Modal}>
           <img src={this.props.url} alt={this.props.alt} />
         </div>
       </div>
     );
   }
 }
+
+Modal.propTypes = {
+  url: PropTypes.string,
+  alt: PropTypes.string,
+};

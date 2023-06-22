@@ -1,4 +1,3 @@
-import { Component } from 'react';
 import { PropTypes } from 'prop-types';
 import css from './Loader.module.css';
 
@@ -10,7 +9,7 @@ export const Loader = ({ small = false }) => {
           <div className={`${css.head} ${css.small}`}> </div>
         </div>
       ) : (
-        <div className="Overlay">
+        <div className={css.overlay}>
           <div className={css.loader}>
             <div className={css.spinner}>
               <div className={css.head}> </div>
@@ -20,4 +19,8 @@ export const Loader = ({ small = false }) => {
       )}
     </>
   );
+};
+
+Loader.propTypes = {
+  small: PropTypes.bool,
 };

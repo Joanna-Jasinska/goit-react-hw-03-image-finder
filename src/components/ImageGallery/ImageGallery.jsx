@@ -17,7 +17,7 @@ export class ImageGallery extends Component {
   };
   render() {
     return (
-      <ul className="ImageGallery gallery">
+      <ul className={css.ImageGallery}>
         {this.props.gallery.map((img, i) => (
           <ImageGalleryItem
             key={nanoid()}
@@ -32,3 +32,15 @@ export class ImageGallery extends Component {
     );
   }
 }
+
+ImageGallery.propTypes = {
+  gallery: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      url: PropTypes.string,
+      miniature: PropTypes.string,
+      alt: PropTypes.string,
+    })
+  ).isRequired,
+  stateUpdate: PropTypes.func.isRequired,
+};

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { PropTypes } from 'prop-types';
 import axios from 'axios';
 import { Searchbar } from './Searchbar/Searchbar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
@@ -7,13 +6,10 @@ import { Modal } from './Modal/Modal';
 import { Loader } from './Loader/Loader';
 import { Button } from './Button/Button';
 
-// to do: proptypes, other repo re-copy component + local save
-
 axios.defaults.baseURL = 'https://pixabay.com/api/';
 const KEY = `37527059-e422356509d98ede2a3340a26`;
 const PER_PAGE = 12;
 const Q_SETTINGS = `&key=${KEY}&image_type=photo&orientation=horizontal&per_page=${PER_PAGE}`;
-// const link = `https://pixabay.com/api/?q=${'cat'}&page=${'1'}&key=${KEY}&image_type=photo&orientation=horizontal&per_page=${PER_PAGE}`;
 
 export class App extends Component {
   constructor() {
@@ -62,7 +58,6 @@ export class App extends Component {
   }
 
   componentDidCatch(error) {
-    console.log(`App component did catch`);
     console.log(error);
     this.setState({ error: error });
   }

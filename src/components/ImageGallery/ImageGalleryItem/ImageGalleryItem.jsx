@@ -16,16 +16,23 @@ export class ImageGalleryItem extends Component {
   render() {
     return (
       <li
-        className="ImageGalleryItem gallery-item"
+        className={css.galleryItem}
         id={this.props.id}
         onClick={this.props.onClick}
       >
         <img
           src={this.props.miniature}
-          className="ImageGalleryItem-image"
+          className={css.galleryItemImage}
           alt={this.props.alt}
         />
       </li>
     );
   }
 }
+
+ImageGalleryItem.propTypes = {
+  id: PropTypes.number,
+  url: PropTypes.string,
+  miniature: PropTypes.string,
+  alt: PropTypes.string,
+};
