@@ -29,7 +29,7 @@ export class Modal extends Component {
     return (
       <div className={css.Overlay} onClick={this.closeModal}>
         <div className={css.Modal}>
-          <img src={this.props.url} alt={this.props.alt} />
+          <img className={css.img} src={this.props.url} alt={this.props.alt} />
         </div>
       </div>
     );

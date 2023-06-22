@@ -59,11 +59,13 @@ export class App extends Component {
 
   componentDidCatch(error) {
     console.log(error);
-    this.setState({ error: error });
+    this.setState({ error: error, loading: false });
   }
 
   async fetchData(q = this.state.query, page = this.state.page) {
-    return await axios.get(`?q=${q}&page=${page}${this.state.querySettings}`);
+    return await axios
+      .get(`?q=${q}&page=${page}${this.state.querySettings}`)
+      .catch(error => this.componentDidCatch(error));
   }
   async newGallery() {
     this.clearGallery();
@@ -120,10 +122,16 @@ export class App extends Component {
             gallery={this.state.gallery}
             stateUpdate={this.stateUpdate.bind(this)}
           />
+        ) : this.state.error ? (
+          ''
         ) : (
           <span className="Message">No search results.</span>
         )}
-        {this.state.error ? this.state.error : ''}
+        {this.state.error ? (
+          <span className="Message">{this.state.error.message}</span>
+        ) : (
+          ''
+        )}
         {this.state.hits > Math.max(0, this.state.gallery.length) ? (
           this.state.loadingMore ? (
             <Loader small={true} />
