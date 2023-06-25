@@ -20,7 +20,7 @@ export class App extends Component {
       modalIndex: '-1',
       loading: false,
       loadingMore: false,
-      query: '',
+      query: 'landscape blues',
       page: 1,
       hits: 0,
       scroll: 0,
@@ -91,7 +91,11 @@ export class App extends Component {
     await this.setState(prev => {
       return { loadingMore: true, page: 1 + Number(prev.page) };
     });
-    const response = await fetchData();
+    const response = await fetchData(
+      this.state.query,
+      this.state.page,
+      this.componentDidCatch.bind(this)
+    );
     this.setState(prev => {
       return {
         response: response,
