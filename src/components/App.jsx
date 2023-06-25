@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import { Searchbar } from './Searchbar/Searchbar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Modal } from './Modal/Modal';
 import { Loader } from './Loader/Loader';
 import { Button } from './Button/Button';
+import { fetchData } from 'services/api';
 
-axios.defaults.baseURL = 'https://pixabay.com/api/';
-const KEY = `37527059-e422356509d98ede2a3340a26`;
-const PER_PAGE = 12;
-const Q_SETTINGS = `&key=${KEY}&image_type=photo&orientation=horizontal&per_page=${PER_PAGE}`;
+// axios.defaults.baseURL = 'https://pixabay.com/api/';
+// const KEY = `37527059-e422356509d98ede2a3340a26`;
+// const PER_PAGE = 12;
+// const Q_SETTINGS = `&key=${KEY}&image_type=photo&orientation=horizontal&per_page=${PER_PAGE}`;
 
 export class App extends Component {
   constructor() {
@@ -23,7 +24,7 @@ export class App extends Component {
       page: 1,
       hits: 0,
       scroll: 0,
-      querySettings: Q_SETTINGS,
+      // querySettings: Q_SETTINGS,
     };
   }
   clearGallery = () => {
@@ -62,17 +63,21 @@ export class App extends Component {
     this.setState({ error: error, loading: false });
   }
 
-  async fetchData(q = this.state.query, page = this.state.page) {
-    return await axios
-      .get(`?q=${q}&page=${page}${this.state.querySettings}`)
-      .catch(error => this.componentDidCatch(error));
-  }
+  // async fetchData(q = this.state.query, page = this.state.page) {
+  //   return await axios
+  //     .get(`?q=${q}&page=${page}${this.state.querySettings}`)
+  //     .catch(error => this.componentDidCatch(error));
+  // }
   async newGallery() {
     this.clearGallery();
     await this.setState(prev => {
       return { loading: true };
     });
-    const response = await this.fetchData();
+    const response = await fetchData(
+      this.state.query,
+      this.state.page,
+      this.componentDidCatch.bind(this)
+    );
     this.setState({
       response: response,
       loading: false,
@@ -86,7 +91,7 @@ export class App extends Component {
     await this.setState(prev => {
       return { loadingMore: true, page: 1 + Number(prev.page) };
     });
-    const response = await this.fetchData();
+    const response = await fetchData();
     this.setState(prev => {
       return {
         response: response,
