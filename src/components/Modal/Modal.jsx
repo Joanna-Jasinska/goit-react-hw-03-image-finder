@@ -8,7 +8,7 @@ export class Modal extends Component {
     alt: 'no alt',
   };
   handleKeyUp = e => {
-    if (e.key === 'Escape') this.closeModal();
+    if (e.key === 'Escape') this.props.stateUpdate('modalIndex', '-1');
   };
   closeModal = e => {
     if (e.target.className === css.Overlay)
