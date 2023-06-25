@@ -10,8 +10,9 @@ export class Modal extends Component {
   handleKeyUp = e => {
     if (e.key === 'Escape') this.closeModal();
   };
-  closeModal = () => {
-    this.props.stateUpdate('modalIndex', '-1');
+  closeModal = e => {
+    if (e.target.className === css.Overlay)
+      this.props.stateUpdate('modalIndex', '-1');
   };
 
   componentDidMount() {
