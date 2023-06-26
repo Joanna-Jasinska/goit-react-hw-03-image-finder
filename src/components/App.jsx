@@ -17,18 +17,17 @@ export class App extends Component {
     super();
     this.state = {
       gallery: [],
+      hits: 0,
       modalIndex: '-1',
       loading: false,
       loadingMore: false,
       query: 'landscape blues',
-      page: 1,
-      hits: 0,
+      page: 0,
       scroll: 0,
-      // querySettings: Q_SETTINGS,
     };
   }
   clearGallery = () => {
-    this.setState({ error: '', page: 1, hits: 0, gallery: [] });
+    this.setState({ error: '', page: 0, hits: 0, gallery: [] });
   };
   stateUpdate = (key, value) => {
     this.setState({ [key]: value });
@@ -42,9 +41,21 @@ export class App extends Component {
       tags: hit.tags,
     }));
   };
-  componentDidUpdate() {
-    if (this.state.page > 1) {
-      window.scrollTo(0, this.state.scroll);
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      this.state.page !== prevState.page ||
+      this.state.query !== prevState.query
+    ) {
+      // await this.setState(prev => {
+      //   return { loadingMore: true, page: 1 + Number(prev.page) };
+      // });
+      try {
+        this.fetchGallery();
+      } finally {
+        if (this.state.page > 1) {
+          window.scrollTo(0, this.state.scroll);
+        }
+      }
     }
   }
   saveScrollPosition = () => {
@@ -62,35 +73,7 @@ export class App extends Component {
     console.log(error);
     this.setState({ error: error, loading: false });
   }
-
-  // async fetchData(q = this.state.query, page = this.state.page) {
-  //   return await axios
-  //     .get(`?q=${q}&page=${page}${this.state.querySettings}`)
-  //     .catch(error => this.componentDidCatch(error));
-  // }
-  async newGallery() {
-    this.clearGallery();
-    await this.setState(prev => {
-      return { loading: true };
-    });
-    const response = await fetchData(
-      this.state.query,
-      this.state.page,
-      this.componentDidCatch.bind(this)
-    );
-    this.setState({
-      response: response,
-      loading: false,
-      gallery: this.convertResponseIntoGallery(response),
-      hits: Number(response.data.totalHits),
-    });
-    return true;
-  }
-  async loadMoreGallery() {
-    this.saveScrollPosition();
-    await this.setState(prev => {
-      return { loadingMore: true, page: 1 + Number(prev.page) };
-    });
+  async fetchGallery() {
     const response = await fetchData(
       this.state.query,
       this.state.page,
@@ -100,11 +83,30 @@ export class App extends Component {
       return {
         response: response,
         loadingMore: false,
+        loading: false,
         gallery: [
           ...prev.gallery,
           ...this.convertResponseIntoGallery(response),
         ],
+        hits: Number(response.data.totalHits),
       };
+    });
+    return true;
+  }
+  async newGallery() {
+    this.clearGallery();
+    try {
+      await this.setState(prev => {
+        return { loading: true, page: 1 };
+      });
+    } finally {
+      return true;
+    }
+  }
+  async loadMoreGallery() {
+    this.saveScrollPosition();
+    await this.setState(prev => {
+      return { loadingMore: true, page: 1 + Number(prev.page) };
     });
     return true;
   }
